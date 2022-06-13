@@ -1,0 +1,69 @@
+warning: LF will be replaced by CRLF in src/main/java/rest/CarResource.java.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in src/main/java/rest/RaceResource.java.
+The file will have its original line endings in your working directory
+[1mdiff --git a/src/main/java/facades/CarFacade.java b/src/main/java/facades/CarFacade.java[m
+[1mindex 0014c41..d92ff30 100644[m
+[1m--- a/src/main/java/facades/CarFacade.java[m
+[1m+++ b/src/main/java/facades/CarFacade.java[m
+[36m@@ -38,8 +38,7 @@[m [mpublic class CarFacade {[m
+         Car car = em.find(Car.class, carId);[m
+         Race race = em.find(Race.class, raceId);[m
+ [m
+[31m-        car.addRaceToCar(race);[m
+[31m-[m
+[32m+[m[32m        race.addCarToRace(car);[m
+         try {[m
+             em.getTransaction().begin();[m
+             em.merge(car);[m
+[1mdiff --git a/src/main/java/rest/CarResource.java b/src/main/java/rest/CarResource.java[m
+[1mindex 59b499d..14a820b 100644[m
+[1m--- a/src/main/java/rest/CarResource.java[m
+[1m+++ b/src/main/java/rest/CarResource.java[m
+[36m@@ -2,6 +2,7 @@[m [mpackage rest;[m
+ [m
+ import com.google.gson.Gson;[m
+ import com.google.gson.GsonBuilder;[m
+[32m+[m[32mimport dtos.CarDTO;[m
+ import facades.CarFacade;[m
+ import utils.EMF_Creator;[m
+ [m
+[36m@@ -22,6 +23,16 @@[m [mpublic class CarResource {[m
+     @Produces({MediaType.APPLICATION_JSON})[m
+     public String getCarsByRace(@PathParam("id") int id) {[m
+         return GSON.toJson(FACADE.getCarsByRace(id));[m
+[32m+[m[32m    }[m
+ [m
+[32m+[m[32m    @Path("/connectCarToRace/{carId}")[m
+[32m+[m[32m    @PUT[m
+[32m+[m[32m    @Produces(MediaType.APPLICATION_JSON)[m
+[32m+[m[32m    @Consumes(MediaType.APPLICATION_JSON)[m
+[32m+[m[32m    public String connectCarToRace(@PathParam("carId") int carId, String race) {[m
+[32m+[m[32m        Integer raceId = GSON.fromJson(race, Integer.class);[m
+[32m+[m[32m        CarDTO connectedCar = FACADE.connectToRace(carId, raceId);[m
+[32m+[m[32m        return GSON.toJson(connectedCar);[m
+     }[m
+[32m+[m
+ }[m
+\ No newline at end of file[m
+[1mdiff --git a/src/main/java/rest/RaceResource.java b/src/main/java/rest/RaceResource.java[m
+[1mindex 1ee8097..744068b 100644[m
+[1m--- a/src/main/java/rest/RaceResource.java[m
+[1m+++ b/src/main/java/rest/RaceResource.java[m
+[36m@@ -42,16 +42,6 @@[m [mpublic class RaceResource {[m
+         return GSON.toJson(newRaceDTO);[m
+     }[m
+ [m
+[31m-    @Path("/connect/{carId}")[m
+[31m-    @PUT[m
+[31m-    @Produces(MediaType.APPLICATION_JSON)[m
+[31m-    @Consumes(MediaType.APPLICATION_JSON)[m
+[31m-    public String connectBoatToHarbour(@PathParam("carId") int carId, String race) {[m
+[31m-        Integer raceId = GSON.fromJson(race, Integer.class);[m
+[31m-        CarDTO connectedCar = CAR_FACADE.connectToRace(carId, raceId);[m
+[31m-        return GSON.toJson(connectedCar);[m
+[31m-    }[m
+[31m-[m
+     @Path("/all")[m
+     @GET[m
+     @Produces({MediaType.APPLICATION_JSON})[m
