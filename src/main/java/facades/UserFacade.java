@@ -72,34 +72,32 @@ public class UserFacade {
         return user;
     }
 /** Create new user **/
-    public User registerNewUser(String username, String password) {
-        EntityManager em = emf.createEntityManager();
-        Role role = new Role("user");
-        User user = new User(username, password);
-        user.addRole(role);
-        try {
-            if (em.find(User.class, username) == null) {
-                em.getTransaction().begin();
-                em.persist(user);
-                em.getTransaction().commit();
-            } else throw new Exception("The User with the name:" + username + " Already Exists!");
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            em.close();
-        }
+public User CreateNewUser(User user) throws AuthenticationException {
+    EntityManager em = emf.createEntityManager();
 
-        return user;
+    try {
+        Role userRole = new Role("user");
+        em.getTransaction().begin();
+
+        user.setUserName(user.getUserName());
+        user.addRole(userRole);
+        //user.setUserPass(user.getUserPass());
+        em.persist(user);
+        em.getTransaction().commit();
+    } finally {
+        em.close();
     }
+    return user;
+}
 /** Initialize the Database **/
     public List<User> initDB() throws Exception {
         EntityManager em = emf.createEntityManager();
         if (em.find(User.class, "user") == null) {
 
 
-            User user = new User("user", "test");
-            User admin = new User("admin", "test");
-            User both = new User("user_admin", "test");
+            User user = new User("user", "test123");
+            User admin = new User("admin", "test123");
+            User both = new User("user_admin", "test123");
 
             em.getTransaction().begin();
             Role userRole = new Role("user");

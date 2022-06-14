@@ -31,10 +31,11 @@ public class ApplicationConfig extends Application {
         resources.add(rest.RaceResource.class);
         resources.add(rest.CarResource.class);
         resources.add(rest.DriverResource.class);
+        resources.add(rest.UserResource.class);
 
         resources.add(security.JWTAuthenticationFilter.class);
         resources.add(security.LoginEndpoint.class);
-        resources.add(security.RegisterEndpoint.class);
+        //resources.add(security.RegisterEndpoint.class);
         resources.add(security.RolesAllowedFilter.class);
         resources.add(security.errorhandling.AuthenticationExceptionMapper.class);
         resources.add(security.errorhandling.NotAuthorizedExceptionMapper.class);

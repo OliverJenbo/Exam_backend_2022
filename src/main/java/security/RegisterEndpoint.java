@@ -12,7 +12,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-
+/*
 @Path("register")
 public class RegisterEndpoint {
 
@@ -43,6 +43,6 @@ public class RegisterEndpoint {
         } catch (Exception e) {
             throw new API_Exception("Malformed JSON Suplied",400,e);
         }
-        return Response.ok().entity(GSON.toJson(USER_FACADE.registerNewUser(username, password))).build();
+        //return Response.ok().entity(GSON.toJson(USER_FACADE.CreateNewUser(username, password))).build();
     }
-}
+}*/

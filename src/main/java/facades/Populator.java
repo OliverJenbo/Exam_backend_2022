@@ -19,9 +19,9 @@ public class Populator {
         EntityManagerFactory emf = EMF_Creator.createEntityManagerFactory();
         EntityManager em = emf.createEntityManager();
 
-        User user = new User("user", "testPass1");
-        User admin = new User("admin", "testPass2");
-        User both = new User("user_admin", "testPass3");
+        User user = new User("user", "123");
+        User admin = new User("admin", "123");
+        User both = new User("user_admin", "123");
 
         Role userRole = new Role("user");
         Role adminRole = new Role("admin");
